@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM事件</title>
+    <style>
+        .wrapper {
+            width: 500px;
+            height: 500px;
+            background-color: aqua;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: violet;
+        }
+        .history {
+            width: 50px;
+            height: 50px;
+            background-color: tomato;
+        }
+        .mark {
+            width: 50px;
+            height: 50px;
+            background-color: thistle;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 
+        事件： 能够在文件中知道用户的行为的一种方式
+               监听用户行为的
+        事件绑定： 即 用户行为的监测
+                 1. 句柄形式 dom.on + 事件名称
+                 2. addEventListener(事件名称, 事件处理函数, 是否事件捕获) 
+                 区别： 
+                    句柄形式只能绑定一个事件处理函数
+                    addEventListener 可以绑定多个事件处理函数
+                 3. attachEvent('on' + 事件名称, s事件处理函数)   IE独有
+                
+
+        事件捕获： 。。。。 从父元素到族元素   先触发父元素的事件  再触发子元素事件
+        时间冒泡： 事件流向 从子元素到父元素   先触发子元素的事件  再触发父元素事件
+        事件绑定中的函数称之为事件处理函数
+
+
+        js中 全局有一个Element 构造函数  该构造函数是js中DOM元素的构造器 即所有的DOM元素都是由该函数构造出来的
+            我们把由一个构造函数构造出来的对象称之为 实例对象  即 DOM元素就是Element的实例对象
+            构造函数身上有一个属性 叫prototype  该属性存储的是由构造函数构造出来的实例对象 们  他们公共含有的属性和方法
+
+     -->
+     <div class="wrapper">
+         <div class="box">
+            <div class="history">历史纪录</div>
+         </div>
+         <div class="mark">书签</div>
+     </div>
+     <script>
+        //  window.history 
+         var historyDiv = document.querySelector('.history');
+         var markDiv = document.querySelector('.mark');
+         var wrapper = document.querySelector('.wrapper');
+         var box = document.querySelector('.box');
+         
+        //  wrapper.onclick = function(e) {
+        //      console.log('wrapper点击')
+        //  }
+        //  box.onclick = function () {
+        //      console.log('box点击')
+        //  }
+        //  markDiv.onclick = function () {
+        //      console.log('mark点击')
+        //  }
+        //  historyDiv.onclick = function() {
+        //      console.log('history点击')
+        //  }
+
+         wrapper.addEventListener('click', function (e) {
+             console.log(e)
+            console.log('wrapper点击')
+         }, true);
+         box.addEventListener('click', function () {
+             console.log('box点击')
+         }, true);
+         historyDiv.addEventListener('click', function() {
+             console.log('history点击')
+         }, true)
+        // // 
+        // console.log(historyDiv)
+        // historyDiv.onclick = function (e) {
+        //     console.log(e)
+        //     window.alert('我是历史纪录按钮')
+        // }
+        // // historyDiv.onclick = function () {
+        // //      console.log('====')
+        // //     console.log('我是第二个点击的事件处理函数')
+        // // }
+        // // markDiv.addEventListener('click', function () {
+        // //     alert('我是书签按钮');
+        // // })
+        // // markDiv.addEventListener('click', function () {
+        // //     console.log('我是第二个点击的事件处理函数')
+        // // })
+
+        // // function 
+        // // Element.prototype
+        // Element.prototype.addEvent = function (eventName, eventCb) {
+        //     if (this.addEventListener) {
+        //         this.addEventListener(eventName, eventCb)
+        //     } else if (this.attachEvent){
+        //         this.attachEvent('on' + eventName, eventCb);
+        //     } else {
+        //         this['on' + eventName] = eventCb;
+        //     }
+        // }
+        // markDiv.addEvent('click', function () {
+        //     console.log('======')
+        // })
+     </script>
+</body>
+</html>

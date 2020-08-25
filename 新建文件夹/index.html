@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM的基本概念及操作</title>
+    <style>
+        .item1 {
+            width: 100px;
+            height: 100px;
+            overflow-y: scroll;
+            padding: 50px;
+            border: 10px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        1. 什么是DOM
+            Document Object Model 文档对象模型
+            用于在js里面对HTML的元素进行一系列的处理方式
+            DOM节点类型：nodeType
+                1. 元素节点 （HTML标签元素）                1
+                2. 属性节点 （HTML标签元素身上的属性）       2
+                3. 文本节点 （文本区域）                    3
+                4. 注释节点  （注释区域）                   8
+                5. DocumentType  
+                6. Document  （文档节点  整个html文件区域）  9
+            节点： 包含所有节点类型
+            元素： 只是元素节点
+            属性节点是标签身上的每个属性区域
+            元素节点是标签
+            文本节点： 纯文本区域
+            注释节点： 注释区域
+            一个元素节点下面可以有多个节点（任意类型）
+
+            对于元素节点身上的属性：
+                classList 返回的是class类名的集合（类数组）remove(str)移除某个class类名  add(str) 添加某个class类名 contains(str) 包含某个class类名
+                className
+                clientHeight/clientWidth  获取元素可视高度/宽度  包含真正的内容区 + padding
+                offsetHeight/offsetWidth  获取当前元素占用的宽度和高度  包含真正的内容区 + padding + border
+                scrollHeight/scrollWidth  获取没有滚动条时里面内容的高度/宽度  实时获取   不包含border
+                scrollTop  获取竖直方向滚动条滚动的距离
+                childNodes 返回当前元素下面的所有的子节点（直接子节点）
+                children    返回当前元素下面的所有的子元素 （直接子节点）
+                firstChild     返回第一个子节点
+                firstElementChild   返回第一个子元素节点
+                innerHTML   当前元素下面的所有的内容（包含标签）
+                innerText   当前元素下面的文本内容
+                contentEditable: 'inherit' 是否可编辑  默认继承自父元素
+                nextElementSibling:  获取当前元素下一个兄弟元素节点
+                nextSibling：  获取当前元素的下一个兄弟节点
+                nodeName   当前节点名称
+                nodeType   当前节点类型
+                nodeValue  当前节点值（一般用在属性节点或者注释节点当中）
+                parentElement  父元素节点
+                parentNode     父节点
+                previousElementSibling   获取当前元素的上一个元素兄弟节点
+                previousSibling    获取当前元素的上一个节点
+                tagName  标签名称
+        2. 获取DOM的方法
+        caniuse.com
+            1) getElementById(str) 获取到ID值为str的元素  返回值为一个dom节点 
+            2) getElementsByTagName(str)  (返回值为集合 一个类数组  包含所有标签名称为str的元素)
+            3) getElementsByClassName(str)  (返回值为集合 一个类数组  包含所有class类名为str的元素)
+            4) getElementsByName(str)    (返回值为集合 一个类数组  包含所有的name值为str的元素)
+            5) querySelector(selector)   参数为css选择器  返回的值是第一个符合css选择器的元素
+            6) querySelectorAll(selector)   参数为css选择器  返回值是所有的符合css选择器的元素
+        3. 创建DOM的方法
+            1）元素节点的创建
+                createElement
+            2) 文本添加
+                createTextNode
+                dom.innerText
+                dom.innerHTML
+        4. 插入DOM的方法
+            1) appendChild()
+            2) insertBefore(newNode, oldNode)
+        5. 获取属性值的方式
+            1) dom.属性名
+                如果属性名为style  获取到的样式为行间样式
+            2) dom.getAttribute('')
+            3) dom.getAttributeNode(attr)
+            属性和特性
+            属性： 是标签身上的一些特点
+            特性： 是html标准出现的时候就已经约定好的标签身上的属性
+            特性是属于属性的
+            属性不属于特性
+        6. 设置属性及其值
+            1) dom.特性名 = 值  
+            2) dom.setAttribute(属性名, 属性值)
+            3) dom.setAttributeNode(属性节点)   
+
+        7. 删除元素节点
+            parentNode.removeChild(node)
+            
+        [1,2,34,54]
+        0: 1,
+        1: 2,
+        2: 34,
+        3: 54,
+        length: 4
+        类数组： 形态像数组  但是不是数组（区别在于数组的方法 类数组中没有）
+        {
+            0: 1,
+            1: 2,
+            2: 34,
+            3: 54,
+            length: 4 
+        }
+     -->
+     <div class="item1 item" xxx="duyi" id="demo" contenteditable="true" style="color: red" title="xxxx">
+        我是item1的直接文本
+         <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum sunt ex praesentium quod necessitatibus, quia obcaecati est eaque natus. Vel ea adipisci nihil impedit, odit dolore accusamus reiciendis voluptates vitae.
+            Magni autem placeat tenetur error tempore eum. Cumque, impedit dolore ab explicabo rerum libero quidem tempora. Perspiciatis voluptatibus aut ut nisi possimus iusto eveniet tenetur sapiente magni nostrum! Beatae, minus.
+            Quas officia adipisci temporibus voluptatem cumque eum accusantium facilis eius quisquam odio beatae expedita, sunt rem aspernatur praesentium dolor dolore obcaecati consectetur iusto illum at itaque. Eligendi blanditiis nisi porro?
+            Nemo eveniet quibusdam alias dolores atque nesciunt voluptates, quidem perspiciatis quam. Perspiciatis, doloremque? Incidunt enim, quaerat ratione, temporibus consequatur vero, sequi voluptas distinctio quae quasi sed magni dignissimos possimus accusantium.
+            Consectetur deserunt fuga quo blanditiis illum repellendus quos veniam temporibus, sed omnis ut officia in aut tempora. Aut ratione, modi non cupiditate possimus deserunt impedit perferendis sapiente sit fuga! Eveniet.
+            Sit sapiente eligendi nihil suscipit qui beatae eaque explicabo vero blanditiis dignissimos minima quae quisquam dolore incidunt nulla consequatur pariatur accusantium obcaecati, maiores dolorem. Perspiciatis eveniet eum veniam natus praesentium.
+            Exercitationem cum necessitatibus minima aliquam voluptate. Tenetur iste corrupti dignissimos necessitatibus nam possimus corporis rem fugit. Neque repellendus suscipit, excepturi blanditiis minima similique itaque optio est cum animi enim mollitia.
+            Excepturi dolorum quam aut quibusdam ratione, voluptatibus delectus vitae quos reiciendis laudantium sed dolorem, quidem, cum eveniet omnis vel. Dicta velit debitis earum corrupti placeat doloribus non mollitia! Saepe, itaque?
+            Ut unde tenetur ex voluptatibus eum error maiores quis nobis velit, ipsa corporis necessitatibus quam illo molestiae expedita debitis vitae! Explicabo a facere aliquam! Magni inventore accusamus dolor ea ipsam!
+            Itaque, laboriosam unde! Voluptatem illum nobis sed distinctio exercitationem tempora cum consequatur nesciunt nostrum voluptates quidem error obcaecati tenetur atque beatae dolores iusto architecto, deserunt sint ad ipsa! Veniam, ut.
+            Facere, ea! Officia quidem dolores laborum amet error maxime accusamus, magnam eveniet laudantium asperiores dignissimos fugit quibusdam odio quaerat quam. Repellendus ex fuga eum placeat nulla dolor rem architecto alias?
+            Deleniti suscipit, possimus voluptate fugit minus magni debitis quidem dignissimos repellat doloremque! Earum esse, laborum iste modi dolore fuga cupiditate vitae nesciunt labore, dolores suscipit nulla recusandae! At, hic distinctio?
+            Quod asperiores fuga quos recusandae sint architecto nobis mollitia eius dolores nesciunt, sapiente magni temporibus maxime, nulla fugiat, excepturi hic dicta. Voluptatibus explicabo deserunt quos molestias reiciendis amet dolorem in.
+            Modi eveniet, velit dignissimos nostrum illum blanditiis veniam eius sapiente fuga iste. Nam sequi nisi sint ab fuga, ad sapiente nulla nihil repudiandae aliquid, aut, id rem animi architecto voluptatibus?
+            Libero enim tempore error aliquid? Perspiciatis asperiores magni maiores inventore, accusamus deleniti? Vero vitae error architecto soluta quibusdam laudantium excepturi repudiandae quidem explicabo, nesciunt consequuntur eius velit fugiat libero possimus!
+            Officiis, exercitationem architecto quis, eligendi delectus nobis sequi neque adipisci in ab reiciendis, atque placeat ex id porro? Placeat, sint quibusdam nobis natus eum magnam autem possimus maxime explicabo incidunt.
+            Veritatis est mollitia molestiae quasi obcaecati error voluptatum, fuga iusto. Nostrum non eius ipsa veritatis aut amet nulla numquam quibusdam corporis distinctio! Ab nemo perferendis porro eveniet dolore ea alias!
+            Ipsum nulla consectetur temporibus iusto nostrum laborum alias itaque minus est, quo eaque optio rerum repellat aliquam modi, dicta sint sapiente odio necessitatibus ipsam quae ab recusandae. Culpa, voluptas fugiat.
+            Laborum omnis voluptate sit ipsa vero consectetur similique vel corrupti quibusdam aspernatur in earum nemo suscipit sint itaque incidunt amet aut illo veritatis, repudiandae fugiat? Aperiam nulla recusandae fugit modi?
+            Iste omnis aspernatur optio inventore, quae nesciunt voluptas dignissimos ut, atque eos libero culpa, repellat qui. Placeat, obcaecati sint tempora expedita alias velit rerum facilis inventore error officiis soluta distinctio!
+            Ab exercitationem quod rerum accusamus sint excepturi perferendis! Saepe, sint quam accusantium accusamus esse incidunt amet quidem, autem minus neque earum eveniet nam ipsum, temporibus velit possimus qui aut officiis?
+            Quae at, consequatur laboriosam rem pariatur eius vel! Est magni perferendis cumque optio rerum ad culpa amet harum. Repellat voluptas sit adipisci magni vero? Quo corrupti quod consequuntur deleniti ipsa!
+            Eveniet, quae deleniti sapiente assumenda sit nobis praesentium debitis corporis eaque doloremque dolorem. Ipsa, officia odit? Corrupti voluptas, tenetur temporibus mollitia, recusandae ab expedita corporis odit nostrum hic suscipit beatae!
+            Laboriosam consequuntur modi in ratione nesciunt ipsum aspernatur possimus architecto suscipit saepe animi, corporis iure accusantium consequatur error autem dolor dolorum hic placeat nostrum ipsa praesentium explicabo eaque tenetur. Iste!
+            Nesciunt ut dignissimos expedita ipsam quae? Obcaecati ea nemo ducimus voluptatem. Neque recusandae, quam facere nostrum fugit error consequuntur exercitationem facilis in nobis. Ipsa quae ratione culpa accusantium dolores repellendus?
+            Odit natus recusandae est laboriosam quaerat rem velit quibusdam, deleniti itaque dignissimos voluptatum. Architecto neque exercitationem aut, veniam, iure aspernatur voluptas eum doloremque molestias explicabo, voluptate eos qui corrupti mollitia.
+            Qui eaque molestias ullam, itaque repellendus nemo, harum corrupti rem quas praesentium distinctio expedita quae in! Magnam at id repudiandae enim nisi? Fuga illo, consequuntur sit dolore totam laboriosam consequatur.
+            Obcaecati, nisi deleniti repellat, est, facere excepturi ipsa animi maiores soluta tempore dignissimos! Voluptates doloribus, adipisci ratione nihil voluptate tenetur maiores iure, eum magnam et voluptatem, quia quos recusandae consequuntur!
+            Repudiandae earum ex aliquid voluptate! Hic in illum ipsum dolores nulla quas fuga magni quia aperiam, dolore culpa qui debitis odio voluptatem laborum facilis modi, veniam magnam tempora, sapiente minima?
+            A, veniam nihil impedit, eligendi perferendis asperiores nam, rerum eos cupiditate veritatis maxime officiis. Maiores veniam ea molestias! Voluptas alias amet aliquid at similique harum earum possimus commodi esse error.
+            Quo, labore doloribus! Corporis placeat eligendi maxime aliquam, deleniti rem molestias provident omnis voluptatem beatae exercitationem possimus iure inventore nam magni eum debitis consequatur ex, quis a necessitatibus illum animi?
+            Maiores exercitationem suscipit nemo atque voluptatibus libero temporibus debitis, nobis fugit rem reiciendis sint! Explicabo, omnis voluptatem maxime delectus, id architecto doloribus tempora veniam expedita fugit, ut nam. Officia, blanditiis?
+            Cumque qui consequatur eligendi voluptatem nisi facilis cupiditate minus hic? Sapiente exercitationem blanditiis, sed quam sit ipsam autem libero perferendis impedit aliquam consequuntur rem, temporibus fugit suscipit natus dolorem maxime!
+            Nulla quam alias perferendis maiores sed amet, saepe totam itaque laudantium debitis at repellat suscipit id explicabo non culpa. Saepe temporibus dolore aperiam eligendi pariatur eum dolorem incidunt dicta eius.
+            Cupiditate natus facere atque? Sed, modi pariatur, dolore tempore ipsa quaerat ea eum ex fugit omnis quibusdam nihil provident magni ratione officia id minima mollitia quasi? Quam repellendus harum reiciendis!
+            Deleniti veritatis tempora id culpa! Obcaecati ullam, hic tempora, nam numquam, consectetur vero dolor similique natus illo laborum cupiditate eaque eveniet esse et id asperiores fugit? Ut, quidem labore. Distinctio.
+            Similique est eaque natus. Earum omnis officia dignissimos quae consequatur corporis quia. Consectetur, laudantium possimus! Temporibus, vel enim consequatur quidem voluptatibus maiores fuga eum cum quia dolore dolorem fugit consequuntur!
+            Mollitia at porro est? Quam atque, autem dolores ipsam soluta aperiam cum sed cumque. Velit excepturi ullam iure adipisci architecto consectetur. Animi, voluptatum quo. Omnis reiciendis ipsam aliquam accusamus doloribus?
+            Quas repellat nemo unde officia nostrum nisi quaerat? Quas architecto veniam, facilis reprehenderit vitae sed obcaecati dicta, harum repudiandae corporis libero, deleniti laudantium fuga quam. Officiis accusamus iusto saepe! Aspernatur.
+            Cumque perferendis tempora vitae id earum sit adipisci, expedita aut provident commodi quibusdam velit ratione voluptatem. Dolorum, veniam consequuntur alias eligendi tempora voluptatibus ea, facilis, laudantium quia impedit quis provident?
+            Corrupti voluptas voluptatum quis. Ex nemo blanditiis beatae impedit rerum! Rerum fugiat quia doloremque, eos deserunt dolore, libero enim a mollitia saepe, exercitationem at repellendus eaque facilis laudantium molestias corrupti.
+            Doloribus soluta quia eveniet, explicabo quisquam eius ad sunt vel ut ipsum omnis animi distinctio maiores doloremque nam praesentium aliquam recusandae tempora esse quo autem laudantium obcaecati facilis mollitia! Perspiciatis.
+            Dignissimos aperiam cupiditate est expedita quibusdam perspiciatis nisi. Sed, dolorem aut quas repudiandae ut, quidem quo cumque non commodi distinctio iste, nostrum fugit. Magni corporis provident aliquid voluptas sit dolores?
+            Beatae, voluptatem hic molestias modi neque cum eveniet. Aliquid ipsum, expedita ratione eos eligendi atque inventore reiciendis nesciunt velit at voluptatibus pariatur cum aliquam quibusdam non! Possimus quasi ipsa rem.
+            Doloribus, dignissimos. Quos molestiae exercitationem, laboriosam incidunt esse quibusdam similique veritatis necessitatibus a repellendus. Saepe, sint, modi magni at eaque consequatur sed provident laborum quibusdam quod ipsa dolore perferendis asperiores!
+            Tempora nemo doloremque explicabo quos veniam, perferendis facilis quasi ab magnam assumenda aut quae minima fugit cupiditate reiciendis nam inventore mollitia illum molestiae magni sapiente voluptatem quo itaque repudiandae? Ipsum!
+            Dolorem officiis quos quae excepturi illum illo ea quas eum reiciendis. Ad, nostrum qui soluta maxime dolorem hic non ex corporis laudantium. Placeat accusamus, architecto inventore doloribus mollitia perferendis reiciendis.
+            Tenetur labore dolor atque. Eligendi nostrum iste quasi dolores magni, veniam porro libero. Numquam quam asperiores eum. Adipisci, consequatur, qui corporis, illo natus enim autem quas doloremque expedita voluptates ducimus!
+            Dolorem nulla dolores nam quas adipisci porro accusantium veniam! Consequuntur nam dolore provident, eveniet reiciendis illum eaque ex blanditiis beatae libero, amet odio magni quas. Sint est quaerat quo rem!
+            Molestias, dolorum commodi sequi iusto tempore nobis laudantium eius molestiae architecto eveniet facere itaque autem voluptates, unde repellat explicabo. Ipsa eum quisquam consequuntur expedita culpa architecto nostrum voluptatibus ratione aut!
+         </p>
+     </div>
+     <div class="item2 item" id="demo">item2</div>
+     <div class="item3 item">item3</div>
+     <div class="item4 item">item4</div>
+     <div class="item5 item">item5</div>
+
+    <script>
+        // var item = document.getElementsByClassName('item');
+        // var item1 = document.querySelector('.item')
+        // // console.log(item1.getAttributeNode('contenteditable'))
+        // // console.log(item1.getAttribute('xxx'))
+        // // item1.id = 'test'
+        // item1.setAttribute('xxx', 'aaa')
+        // var attrNode = document.createAttribute('index');
+        // attrNode.nodeValue = '0'
+        // item1.setAttributeNode(attrNode)
+        // // var item6 = document.createElement('div');
+        // // item6.className = 'item item6'
+        // // var textNode = document.createTextNode('item6');
+        // // item6.appendChild(textNode);
+        // // document.body.appendChild(item6);
+
+        var item0 = document.createElement('div');
+        item0.innerText = 'item0';
+        var item1 = document.querySelector('.item1');
+        document.body.insertBefore(item0, item1);
+
+    </script>
+</body>
+</html>

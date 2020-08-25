@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            width: 500px;
+            border: 1px solid #000;
+            margin: auto;
+        }
+        .inp-box {
+            height: 60px;
+        }
+        #input-area {
+            width: 400px;
+            height: 40px;
+            line-height: 40px;
+            vertical-align: bottom;
+        }
+        .input-btn {
+            height: 40px;
+            line-height: 40px;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inp-box">
+            <textarea name="" id="input-area" cols="30" rows="10"></textarea>
+            <button class="input-btn">发布</button>
+        </div>
+        <ol class="content">
+
+        </ol>
+        <button id="del-btn">删除</button>
+    </div>
+    <script>
+        // var inputBtn = document.getElementsByClassName('input-btn')[0];
+        var inputBtn = document.querySelector('.input-btn');
+        var textarea = document.getElementById('input-area');
+        var delBtn = document.getElementById('del-btn');
+        var content = document.querySelector('.content');
+        var allLi = content.getElementsByTagName('li');
+        // inputBtn.onclick = function () {
+        //     var val = textarea.value;
+        //     var oLi = document.createElement('li');
+        //     var delBtn = document.createElement('button');
+        //     delBtn.innerText = '删除';
+        //     delBtn.setAttribute('index', allLi.length)
+        //     delBtn.onclick = function () {
+        //         var oLi = this.parentNode;
+        //         oLi.parentNode.removeChild(oLi);
+        //         // // 获取当前按钮对应的留言索引值   
+        //         // var index = Number(this.getAttribute('index'));
+        //         // console.log(allLi.length, index)
+        //         // // 将删除的留言后面的所有的留言索引值减一 
+        //         // for(var i = index + 1; i < allLi.length; i++) {
+        //         //     var currentBtn = allLi[i].querySelector('button');
+        //         //     var currentIndex = Number(currentBtn.getAttribute('index'));
+        //         //     currentBtn.setAttribute('index', currentIndex - 1);
+        //         // }
+        //         // // 后面的索引值变化之后  移除当前点击删除的元素
+        //         // content.removeChild(allLi[index]);
+        //     }
+        //     oLi.innerText = val;
+        //     oLi.appendChild(delBtn)
+        //     content.appendChild(oLi);
+        // }
+
+        inputBtn.onclick = function () {
+            var val = textarea.value;
+            var oLi = document.createElement('li');
+            oLi.innerText = val;
+            content.appendChild(oLi);
+            oLi.onclick = function () {
+                console.log(typeof this.getAttribute('active'))
+                var active = this.getAttribute('active')
+                var isActive = typeof active === 'string' ? (active === 'true' ? false : true) : !active;
+                if (isActive) {
+                    this.style.backgroundColor = '#eee';
+                } else {
+                    this.style.backgroundColor = '#fff'
+                }
+                this.setAttribute('active', isActive);
+            }
+        }
+        delBtn.onclick = function () {
+            var delLi = [];
+            for (var i = 0; i < allLi.length; i++) {
+                var active = allLi[i].getAttribute('active');
+                console.log(active)
+                var isActive = typeof active === 'string' ? (active === 'true' ? true : false) : !!active;
+                if (isActive) {
+                    delLi.push(allLi[i]);
+                }
+            }
+            delLi.forEach(function (item) {
+                content.removeChild(item);
+            })
+        }
+    </script>
+</body>
+</html>

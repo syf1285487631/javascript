@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .wrapper {
+            width: 500px;
+            margin: auto;
+            border: 1px solid #000;
+        }
+        .input-box {
+            width: 100%;
+        }
+        .input-box #inp {
+            width: 400px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            vertical-align: middle;
+        }
+        #inp-btn {
+            height: 40px;
+            line-height: 40px;
+            width: 80px;
+            vertical-align: middle;
+        }
+
+        .content li {
+            list-style: none;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="input-box">
+            <textarea id="inp"> </textarea>
+            <button id="inp-btn">发布</button>
+        </div>
+        <ul class="content">
+          
+        </ul>
+    </div>
+    <script>
+        var inpBtn = document.getElementById('inp-btn');
+        var inp = document.getElementById('inp');
+        var content = document.querySelector('.content');
+        var oLi = content.getElementsByTagName('li');
+        inpBtn.onclick = function () {
+            var val = inp.value;
+            var dom = document.createElement('li');
+            dom.innerText = (oLi.length + 1) + '.' + val;
+            content.appendChild(dom);
+            inp.value = ''
+        }
+    </script>
+</body>
+
+</html>
